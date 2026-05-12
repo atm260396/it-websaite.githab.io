@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Интеллектуальная система сопровождения проектной деятельности школьников в области IT</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#050816;
+    --card:#0f172a;
+    --blue:#38bdf8;
+    --purple:#8b5cf6;
+    --text:#ffffff;
+    --gray:#94a3b8;
+    --border:rgba(255,255,255,0.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle,var(--purple),transparent 70%);
+    top:-250px;
+    right:-250px;
+    opacity:0.15;
+    z-index:-1;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle,var(--blue),transparent 70%);
+    bottom:-250px;
+    left:-250px;
+    opacity:0.15;
+    z-index:-1;
+}
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:22px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(15px);
+    background:rgba(5,8,22,0.7);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:800;
+    background:linear-gradient(to right,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+nav a{
+    color:var(--gray);
+    text-decoration:none;
+    margin-left:30px;
+    transition:0.3s;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:150px 8% 100px;
+}
+
+.hero-content{
+    max-width:1100px;
+}
+
+.badge{
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:50px;
+    border:1px solid rgba(56,189,248,0.25);
+    background:rgba(56,189,248,0.08);
+    color:var(--blue);
+    margin-bottom:35px;
+    font-size:14px;
+}
+
+.hero h1{
+    font-size:72px;
+    line-height:1.1;
+    margin-bottom:30px;
+    font-weight:800;
+}
+
+.hero h1 span{
+    background:linear-gradient(to right,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    max-width:850px;
+    margin:auto;
+    color:var(--gray);
+    font-size:20px;
+    line-height:1.9;
+}
+
+.buttons{
+    margin-top:45px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:16px 34px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:linear-gradient(to right,var(--blue),var(--purple));
+    color:white;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+}
+
+.btn-secondary{
+    border:1px solid var(--border);
+    color:white;
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,0.05);
+}
+
+.section{
+    padding:110px 8%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.section-subtitle{
+    text-align:center;
+    max-width:760px;
+    margin:auto;
+    color:var(--gray);
+    line-height:1.8;
+    margin-bottom:70px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(15,23,42,0.8);
+    border:1px solid var(--border);
+    border-radius:26px;
+    padding:35px;
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(56,189,248,0.3);
+    box-shadow:0 10px 40px rgba(56,189,248,0.08);
+}
+
+.icon{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    background:linear-gradient(to right,var(--blue),var(--purple));
+    margin-bottom:25px;
+}
+
+.card h3{
+    margin-bottom:18px;
+    font-size:24px;
+}
+
+.card p{
+    color:var(--gray);
+    line-height:1.8;
+}
+
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-box{
+    background:rgba(15,23,42,0.75);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:45px;
+}
+
+.about-box h2{
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+.about-box p{
+    color:var(--gray);
+    line-height:1.9;
+    margin-bottom:18px;
+}
+
+.image-box img{
+    width:100%;
+    border-radius:28px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+    margin-top:80px;
+}
+
+.stat{
+    text-align:center;
+    background:rgba(15,23,42,0.75);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:35px;
+}
+
+.stat h2{
+    font-size:54px;
+    background:linear-gradient(to right,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.stat p{
+    margin-top:12px;
+    color:var(--gray);
+}
+
+.timeline{
+    position:relative;
+    margin-top:60px;
+}
+
+.step{
+    background:rgba(15,23,42,0.8);
+    border:1px solid var(--border);
+    padding:30px;
+    border-radius:24px;
+    margin-bottom:25px;
+}
+
+.step h3{
+    margin-bottom:15px;
+    color:var(--blue);
+}
+
+footer{
+    padding:45px;
+    text-align:center;
+    border-top:1px solid var(--border);
+    color:var(--gray);
+    margin-top:100px;
+}
+
+@media(max-width:950px){
+
+    nav{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .section-title{
+        font-size:38px;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        EduAI System
+    </div>
+
+    <nav>
+        <a href="#home">Главная</a>
+        <a href="#features">Функции</a>
+        <a href="#about">О проекте</a>
+        <a href="#stages">Этапы</a>
+    </nav>
+
+</header>
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            Научно-исследовательский IT-проект
+        </div>
+
+        <h1>
+            Интеллектуальная система
+            сопровождения
+            <span>проектной деятельности школьников</span>
+            в области IT
+        </h1>
+
+        <p>
+            Современная цифровая AI-платформа для сопровождения,
+            анализа и управления проектной деятельностью учащихся
+            в сфере информационных технологий и робототехники.
+        </p>
+
+        <div class="buttons">
+
+            <a href="#features" class="btn btn-primary">
+                Изучить проект
+            </a>
+
+            <a href="#about" class="btn btn-secondary">
+                Подробнее
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="features">
+
+    <h2 class="section-title">
+        Возможности системы
+    </h2>
+
+    <p class="section-subtitle">
+        Использование технологий искусственного интеллекта
+        для повышения эффективности проектной деятельности
+        школьников в области IT.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <div class="icon">🤖</div>
+
+            <h3>AI Анализ проектов</h3>
+
+            <p>
+                Автоматический анализ проектных работ,
+                выявление ошибок и рекомендации
+                по улучшению результатов.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">📚</div>
+
+            <h3>Цифровое сопровождение</h3>
+
+            <p>
+                Поддержка учащихся на каждом этапе
+                выполнения IT-проекта и исследований.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">📊</div>
+
+            <h3>Мониторинг прогресса</h3>
+
+            <p>
+                Отслеживание выполнения задач,
+                сроков и эффективности работы команды.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">☁️</div>
+
+            <h3>Облачная система</h3>
+
+            <p>
+                Хранение проектов, документации,
+                кода и презентационных материалов.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">🧠</div>
+
+            <h3>Интеллектуальные рекомендации</h3>
+
+            <p>
+                AI-помощник предлагает идеи,
+                технологии и пути решения задач.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">🛠️</div>
+
+            <h3>Поддержка робототехники</h3>
+
+            <p>
+                Интеграция с LEGO Mindstorms
+                и STEM-проектами школьников.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="about">
+
+    <div class="about">
+
+        <div class="about-box">
+
+            <h2>
+                О проекте
+            </h2>
+
+            <p>
+                Проект направлен на разработку интеллектуальной
+                системы сопровождения проектной деятельности
+                школьников в области информационных технологий.
+            </p>
+
+            <p>
+                Основная цель системы —
+                повышение эффективности обучения,
+                автоматизация сопровождения проектов
+                и развитие цифровых компетенций учащихся.
+            </p>
+
+            <p>
+                Платформа объединяет технологии
+                искусственного интеллекта,
+                облачных вычислений и аналитики данных.
+            </p>
+
+        </div>
+
+        <div class="image-box">
+
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop">
+
+        </div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2>AI</h2>
+            <p>Интеллектуальный анализ</p>
+        </div>
+
+        <div class="stat">
+            <h2>24/7</h2>
+            <p>Поддержка платформы</p>
+        </div>
+
+        <div class="stat">
+            <h2>100+</h2>
+            <p>Возможных проектов</p>
+        </div>
+
+        <div class="stat">
+            <h2>STEM</h2>
+            <p>Интеграция технологий</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="stages">
+
+    <h2 class="section-title">
+        Этапы работы системы
+    </h2>
+
+    <p class="section-subtitle">
+        Полный цикл сопровождения проектной деятельности учащихся.
+    </p>
+
+    <div class="timeline">
+
+        <div class="step">
+            <h3>1. Регистрация проекта</h3>
+
+            <p>
+                Создание проекта, добавление участников,
+                постановка задач и определение целей исследования.
+            </p>
+        </div>
+
+        <div class="step">
+            <h3>2. AI Анализ</h3>
+
+            <p>
+                Интеллектуальная система анализирует
+                проект и предлагает рекомендации.
+            </p>
+        </div>
+
+        <div class="step">
+            <h3>3. Сопровождение</h3>
+
+            <p>
+                Контроль выполнения задач,
+                отслеживание прогресса и консультации.
+            </p>
+        </div>
+
+        <div class="step">
+            <h3>4. Оценка результатов</h3>
+
+            <p>
+                Формирование статистики,
+                аналитики и итоговой оценки проекта.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 EduAI System — Интеллектуальная система сопровождения проектной деятельности школьников в области IT
+</footer>
+
+</body>
+</html>
